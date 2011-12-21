@@ -38,7 +38,30 @@ public class TicTacToe {
 		if(fields[2] == fields[4] && fields[4] == fields[6] && fields[2] != 0)
 			return fields[2];
 		
+		boolean allOccupyed = true;
+		for(int f: fields) {
+			if(f == 0) {
+				allOccupyed = false;
+				break;
+			}
+		}
+		
+		if(allOccupyed)
+			return 3;
+		
 		return 0;
 
+	}
+	
+	public String toString() {
+		String rVal = "";
+		
+		for(int i = 0; i<3; i++) {
+			for(int j = 0; j<3; j++) {
+				rVal = rVal + fields[3*i+j];
+			}
+			rVal = rVal + "\n";
+		}
+		return rVal;
 	}
 }
