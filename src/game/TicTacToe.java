@@ -12,19 +12,10 @@ public class TicTacToe {
 	}
 
 	public int[] getFields() {
-		return fields;
+		return fields.clone();
 	}
-
-	public int setField(int id, int player)  throws Exception {
-		if(player != turn)
-			throw new Exception("It's not your turn!");
-		else if(id < 0 || id > 8)
-			throw new Exception("ids have to be between 0 and 8");
-		else {
-			fields[id] = player;
-			turn = 3 - turn;
-		}
-
+	
+	public static int testWin(int[] fields) {
 		for(int i = 0; i<3; i++) {
 			if(fields[i] == fields[3+i] && fields[i] == fields[6+i] && fields[i] != 0)
 				return fields[i];
@@ -50,17 +41,37 @@ public class TicTacToe {
 			return 3;
 		
 		return 0;
+	}
+	
+	public int testWin() {
+		return testWin(fields);
+	}
+
+	public int setField(int id, int player)  throws Exception {
+		if(player != turn)
+			throw new Exception("It's not your turn player " + player +"!");
+		else if(id < 0 || id > 8)
+			throw new Exception("ids have to be between 0 and 8");
+		else {
+			if(fields[id] != 0)
+				throw new Exception("Field arlready occupyed!");
+			fields[id] = player;
+			turn = 3 - turn;
+		}
+
+		return testWin();
 
 	}
 	
 	public String toString() {
 		String rVal = "";
 		
-		for(int i = 0; i<3; i++) {
-			for(int j = 0; j<3; j++) {
-				rVal = rVal + fields[3*i+j];
+		for(int i = 0; i<9; i++) {
+			if(i%3 == 0) {
+				rVal = rVal + "\n";
 			}
-			rVal = rVal + "\n";
+			rVal = rVal + fields[i];
+			
 		}
 		return rVal;
 	}
